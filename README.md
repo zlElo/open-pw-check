@@ -15,7 +15,9 @@ The program has a little cracking tool integrated. If the password has >5 charac
 - if password has letters = letters
 - if password has numbers = numbers
 - if password has specials = specials
+
 The program will detect which characters are used (letters, numbers or specials) and will use only this for cracking. For example:
+
 - the password is following: ```h23d```
 - open-pw-check detect that the password has numbers and letters
 - now the program create passwords with 4 letters and numbers, for example: ```dwd1``` or ```ff5e```
