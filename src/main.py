@@ -1,9 +1,7 @@
 import re
 import secrets
 import string
-from time import sleep
 import sys
-
 
 
 def check():
@@ -12,16 +10,12 @@ def check():
     ranking = ''
     information = ''
     cracked = 'no cracking test under 5 characters'
-    
-
     password = input('Please enter your password here: ')
     
-
     listing_big_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     listing_small_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     listing_numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     listing_specials = ['!', '?', '"', ',', '.', '-', '_', '#', '(', ')', '{', '}', '$', '%', '<', '>', ';', ':', '+', '*', '~', '|', '@', '^', '°', '€', 'µ', '§', '³', '=', '`', 'ü', 'Ü', 'Ö', 'ö', 'Ä', 'ä']
-
 
     for i in listing_big_letters:
         if i in password:
@@ -41,9 +35,7 @@ def check():
     
     print('[Log] detection of used characters')
 
-
     length = len(password)
-
 
     if length < 5:
         score -= 1
@@ -61,49 +53,20 @@ def check():
         letters_ = string.ascii_letters
         specials_ = "!?.-_#(){$}%<>;:+*~|@^°€µ§=`üÜÖöÄä'³"
 
-        # sorry for this bad code, but I havent find another option (normal lists with .append wasnt possible)
-        if letters == None:
-            ###
-            if numbers == None:
-                ###
-                if specials == None:
-                    print('error')
-                else:
-                    uses = list(specials_)
-            ###        
-            else:
-                ###
-                if specials == None:
-                    uses = list(numbers_)
-                else:
-                    uses = list(numbers_ + specials_)
-        ###
-        else:
-            ###
-            if specials == None:
-                ###
-                if numbers == None:
-                    uses = list(letters_)
-                else:
-                    uses = list(letters_ + numbers_)
-                    
-            ###    
-            else:
-                ####
-                if numbers == None:
-                    uses = list(letters_ + specials_)
-                else:
-                    uses = list(letters_ + numbers_ + specials_)
+        # stringbuilder
+        uses_list = []
 
+        if letters:
+            uses_list.append(letters_)
+        if numbers:
+            uses_list.append(numbers_)
+        if specials:
+            uses_list.append(specials_)
         
-
-        
-
-        
+        uses = ''.join(uses_list)
         generated = '123'
         count = 3000000
         count2 = 0
-
 
         print("Total count: "+str(count),end=' ')
 
@@ -125,7 +88,6 @@ def check():
             cracked = 'The password cracker wasnt able to crack your password!'
             print('[Log] it was not possible to crack the password with 3.000.000 trys!')
 
-
     print('[Log] check length')
 
     if length < 11:
@@ -142,7 +104,6 @@ def check():
 
     print('[Log] length check successfully')
 
-    
     print('[Log] compromised password check')
     with open('src/lists/list_compromised.txt') as file:
         content_ = file.read()
@@ -152,7 +113,6 @@ def check():
         else:
             compromised = 'your password isnt compromised!'
             print('[Log] not compromised')
-            
 
     if score <= 5:
         improve = 'use a password with big and small letters, numbers and special symbols!'
@@ -194,7 +154,7 @@ def check():
         improve = 'there is nothing what you can make better!'
         ranking = 'A+ (perfect)'
 
-
+    # Show stats
     print(f'\n\n-----Stats-----')
     print(f'\nScore: {score}\nRanking: {ranking}\nInformation: {information}\nCompromised: {compromised}\nCracked: {cracked}\nWhat can you make better?: {improve}')
 
